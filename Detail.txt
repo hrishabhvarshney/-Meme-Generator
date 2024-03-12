@@ -1,0 +1,60 @@
+/**\*\*\*\***\*\***\*\*\*\***\***\*\*\*\***\*\***\*\*\*\***HTML Structure******\*\*******\*\*******\*\*******\*******\*\*******\*\*******\*\*******/
+
+The HTML structure consists of a div element with the class "meme-generator". Inside this div, there's a button with the class "generator-meme-btn", an h2 element with the class "meme-title", an img element, and a div with the class "meme-author".
+The button is used to generate a meme, and when clicked, it triggers the JavaScript function to fetch a meme from an API.
+The h2 element with the class "meme-title" initially contains the text "Loading...", indicating that the meme is being loaded.
+The img element initially has an empty src attribute, which will be updated with the URL of the meme image fetched from the API.
+The div with the class "meme-author" is initially empty and will be populated with the author information of the meme.
+/****\*\*****\*\*\*\*****\*\*****\*****\*\*****\*\*\*\*****\*\*****CSS Styling****\*\*\*\*****\*\*****\*\*\*\*****\*****\*\*\*\*****\*\*****\*\*\*\*****/
+
+The CSS styles define the appearance of the meme generator interface.
+The font-family is set to 'Times New Roman', Times, serif for text inside the meme generator.
+The text-align is set to center to align the content of the meme generator.
+The meme image is styled to have a fixed height of 430px and to cover the container using object-fit property.
+The button and its hover effect, as well as the meme author, are styled to enhance the visual presentation.
+/****\*\*****\*\*\*\*****\*\*****\*****\*\*****\*\*\*\*****\*\*****Java Script****\*\*\*\*****\*\*\*\*****\*\*\*\*****\*****\*\*\*\*****\*\*\*\*****\*\*\*\*****/
+code===>
+const generateMemeBtn = document.querySelector(".meme-generator .generator-meme-btn");
+const memeImage = document.querySelector('.meme-generator img');
+const memeTitle = document.querySelector('.meme-generator .meme-title');
+const memeAuthor = document.querySelector('.meme-generator .meme-author');
+
+const updateDetails = (url, title, author) => {
+memeImage.setAttribute("src", url);
+memeTitle.innerHTML = title;
+memeAuthor.innerHTML = author;
+};
+
+const generateMeme = function () {
+fetch("https://meme-api.com/gimme/wholesomememes")
+.then((response) => response.json())
+.then((data) => {
+updateDetails(data.url, data.title, data.author);
+});
+};
+
+generateMemeBtn.addEventListener('click', generateMeme);
+explain ====>
+updateDetails(url, title, author): This function updates the meme image, title, and author elements with the provided data.
+
+generateMeme(): This function is responsible for fetching a meme from an external API and updating the meme generator interface with the fetched data. It uses the fetch API for this purpose.
+
+fetch API:
+The fetch() function is used to make network requests to fetch resources from the network, typically across the internet. It returns a Promise.
+It takes one mandatory argument: the URL of the resource you want to fetch.
+fetch("https://meme-api.com/gimme/wholesomememes") initiates a GET request to the specified URL, which is an API endpoint that returns a random wholesome meme.
+fetch() returns a Promise that resolves to the Response object representing the response to the request.
+.then((response) => response.json()): This method of the Promise object is used to parse the JSON-encoded response. It returns another Promise.
+.then((data) => { updateDetails(data.url, data.title, data.author); }): This method of the Promise object is called when the Promise is fulfilled. It receives the parsed JSON data as its argument and then calls the updateDetails() function to update the meme generator interface with the fetched meme data.
+Event Listener:
+generateMemeBtn.addEventListener('click', generateMeme);: This line adds an event listener to the "Generate Meme" button. When the button is clicked, it triggers the generateMeme() function to fetch and display a new meme.
+fetch API in Detail:
+The fetch() function is part of the modern JavaScript API for making HTTP requests.
+It is asynchronous and returns a Promise that resolves to the Response object representing the response to the request.
+The basic syntax is fetch(url, options), where url is the URL of the resource you want to fetch, and options (optional) is an object containing settings such as method, headers, body, etc.
+By default, fetch() makes a GET request. You can specify other HTTP methods like POST, PUT, DELETE, etc., using the options parameter.
+fetch() returns a Promise, which resolves with the Response object once the request completes successfully.
+To handle the response, you typically chain .then() methods to the fetch call. You can chain multiple .then() methods to perform various operations on the response data.
+response.json() is one of the methods used to process the response body. It parses the JSON-encoded response and returns a Promise that resolves to the parsed JSON data.
+It's important to handle errors by chaining a .catch() method to the Promise chain. This allows you to handle any errors that occur during the fetch operation.
+The fetch API provides a flexible and powerful way to make HTTP requests in JavaScript, offering more control and functionality compared to older methods like XMLHttpRequest.
