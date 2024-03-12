@@ -4,10 +4,6 @@
 
 This web application allows you to generate wholesome memes fetched from an external API.
 
-## File Name
-
-`meme_generator.html`
-
 ## Features
 
 - Click the "Generate Meme" button to fetch a new wholesome meme.
